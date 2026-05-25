@@ -38,6 +38,7 @@ jobs:
         uses: sxzz/workflows/setup-js@main
         with:
           fetch-all: true
+          cache: false
 
       - name: Generate GitHub Changelog
         run: pnpx changelogithub
