@@ -28,6 +28,9 @@ name: Unit Test
 uses: sxzz/workflows/.github/workflows/unit-test.yml@main
 ```
 
+> [!TIP]
+> Use the `vp` branch instead of `main` to use the [Vite Plus](https://viteplus.dev) variant, e.g. `sxzz/workflows/.github/workflows/unit-test.yml@vp`.
+
 See the [`examples/`](./examples) folder for sample workflow configurations:
 
 - [Unit Test](./examples/unit-test.yml)
