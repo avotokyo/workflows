@@ -17,12 +17,12 @@ jobs:
       id-token: write
 
     steps:
-      - name: Setup JS
-        uses: sxzz/workflows/setup-js@main
+      - name: Setup Vite Plus
+        uses: bjmhe/workflows/setup-vp@vp
 
       - name: Build
         run: ${{ inputs.build }}
         if: ${{ inputs.build }}
 
       - name: Publish to JSR
-        run: pnpx jsr publish
+        run: vpx jsr publish

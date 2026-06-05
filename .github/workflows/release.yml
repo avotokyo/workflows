@@ -35,7 +35,7 @@ jobs:
 
     steps:
       - name: Setup Vite Plus
-        uses: sxzz/workflows/setup-vp@main
+        uses: bjmhe/workflows/setup-vp@vp
         with:
           fetch-all: true
           cache: false
