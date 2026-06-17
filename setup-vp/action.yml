@@ -1,26 +1,49 @@
-name: Setup Vite Plus
-description: Setup Vite Plus environment
+name: Setup VP
+description: 用于配置 Vite Plus 开发环境。
 
 inputs:
   persist-credentials:
-    description: Whether to configure the token or SSH key with the local git config
+    description: 是否在本地 Git 配置中写入 Token 或 SSH 密钥。
     default: "false"
 
   fetch-all:
-    description: Whether to fetch all history for all branches and tags.
+    description: 是否拉取所有分支与标签的完整提交历史。
     default: "false"
 
+  version:
+    description: 指定要安装的 Vite+ 版本。
+    default: "latest"
+
   node-version:
-    description: "Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0."
+    description: 指定通过 `vp env use` 使用的 Node.js 版本范围。
     default: "lts/*"
 
+  node-version-file:
+    description: 指定 Node.js 版本文件路径（支持 .nvmrc、.node-version、.tool-versions、package.json）。
+
+  working-directory:
+    description: 指定用于依赖安装与相对路径解析的工作目录。
+
   auto-install:
-    description: Whether to automatically install dependencies.
+    description: 是否在初始化完成后自动执行 `vp install`。
     default: "true"
 
+  sfw:
+    description: 是否使用 Socket Firewall Free 包装执行 `vp install`。
+    default: "false"
+
   cache:
-    description: Whether to enable caching for node modules.
+    description: 是否启用依赖缓存功能。
     default: "true"
+
+  cache-dependency-path:
+    description: 指定用于生成缓存键的锁文件路径。
+
+  registry-url:
+    description: 指定用于 npm 认证配置的 Registry 地址。
+
+  scope:
+    description: 指定在 Scoped Registry 认证场景下使用的 Scope。
 
 runs:
   using: composite
@@ -34,6 +57,13 @@ runs:
     - name: Setup Vite Plus
       uses: voidzero-dev/setup-vp@ca1c46663915d6c1042ae23bd39ab85718bfb0fa # v1.10.0
       with:
+        version: ${{ inputs.version }}
         node-version: ${{ inputs.node-version }}
+        node-version-file: ${{ inputs.node-version-file }}
+        working-directory: ${{ inputs.working-directory }}
         cache: ${{ inputs.cache }}
+        cache-dependency-path: ${{ inputs.cache-dependency-path }}
+        registry-url: ${{ inputs.registry-url }}
+        scope: ${{ inputs.scope }}
+        sfw: ${{ inputs.sfw }}
         run-install: ${{ inputs.auto-install }}
