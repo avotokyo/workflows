@@ -20,7 +20,7 @@ jobs:
       id-token: write
     steps:
       - name: Setup Vite Plus
-        uses: sxzz/workflows/setup-vp@main
+        uses: avotokyo/workflows/setup-vp@main
 
       - name: Build
         run: ${{ inputs.build }}
