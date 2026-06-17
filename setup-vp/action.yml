@@ -1,4 +1,4 @@
-name: Setup VP
+name: Setup Vite+
 description: 用于配置 Vite Plus 开发环境。
 
 inputs:
