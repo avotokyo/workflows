@@ -1,41 +1,74 @@
 ---
 name: avotokyo-workflows
-description: Use avotokyo/workflows reusable GitHub Actions in TypeScript/Vite+ projects. Use when wiring CI/CD, choosing check/test/release/coverage workflows, or referencing avotokyo/workflows actions.
+description: Use avotokyo/workflows reusable GitHub Actions for TypeScript/Vite+ projects. Use when wiring CI/CD, choosing check/test/release/coverage workflows, or referencing avotokyo/workflows actions.
+metadata:
+  author: avotokyo
+  version: "2026.6.17"
+  source: https://github.com/avotokyo/workflows
 ---
 
 # avotokyo/workflows
 
-TypeScript / Vite+ (`vp`) 项目的可复用 GitHub Actions。仓库：`avotokyo/workflows`，用 `@main` 或 tag 固定版本。
+Reusable GitHub Actions for TypeScript / Vite+ (`vp`) projects.
 
-## 怎么选
+Repo: `avotokyo/workflows`. Pin with `@main` or a release tag.
 
-| 需求 | 读取 |
-|------|------|
-| 完整 CI | [references/unit-test.md](references/unit-test.md) |
-| 仅检查 | [references/check.md](references/check.md) |
-| 仅矩阵测试 | [references/test.md](references/test.md) |
-| 覆盖率 | [references/coverage.md](references/coverage.md) |
-| 发布 | [references/release.md](references/release.md) |
-| 仅发布 npm | [references/publish.md](references/publish.md) |
-| 自动修复 | [references/autofix.md](references/autofix.md) |
-| 自定义 job | [references/setup.md](references/setup.md) + [references/run.md](references/run.md) |
+**Important:** Workflows go in `.github/workflows/` (job-level `uses:`). Actions go in `actions/` (step-level `uses:`). Default commands: `vp check`, `vp run build`, `vp test`.
 
-完整索引：[references/README.md](references/README.md)
+> Based on avotokyo/workflows, updated 2026-06-17.
 
-## 引用方式
+## Composite Workflows
+
+Recommended entry points. Read one file when implementing.
+
+| Topic     | Description             | Reference                                                |
+| --------- | ----------------------- | -------------------------------------------------------- |
+| Unit Test | Check + matrix test CI  | [composite-unit-test](references/composite-unit-test.md) |
+| Release   | Changelog + npm publish | [composite-release](references/composite-release.md)     |
+
+## Workflows
+
+Single-job reusable workflows. Compose manually when you need finer control.
+
+| Topic     | Description              | Reference                                              |
+| --------- | ------------------------ | ------------------------------------------------------ |
+| Check     | Lint/check on one OS     | [workflow-check](references/workflow-check.md)         |
+| Test      | Matrix OS × Node test    | [workflow-test](references/workflow-test.md)           |
+| Coverage  | Coverage test + Codecov  | [workflow-coverage](references/workflow-coverage.md)   |
+| Changelog | GitHub Release changelog | [workflow-changelog](references/workflow-changelog.md) |
+| Publish   | Build + npm publish      | [workflow-publish](references/workflow-publish.md)     |
+| Autofix   | Auto-fix and commit      | [workflow-autofix](references/workflow-autofix.md)     |
+
+## Actions
+
+Composite steps for custom jobs.
+
+| Topic          | Description                  | Reference                                                    |
+| -------------- | ---------------------------- | ------------------------------------------------------------ |
+| Setup          | Checkout + Vite+ environment | [action-setup](references/action-setup.md)                   |
+| Run            | Execute a shell command      | [action-run](references/action-run.md)                       |
+| Changelog      | Run changelogithub (step)    | [action-changelog](references/action-changelog.md)           |
+| Publish NPM    | vp pm publish (step)         | [action-publish-npm](references/action-publish-npm.md)       |
+| Upload Codecov | Codecov OIDC upload (step)   | [action-upload-codecov](references/action-upload-codecov.md) |
+| Autofix Commit | autofix-ci commit (step)     | [action-autofix-commit](references/action-autofix-commit.md) |
+
+## Best Practices
+
+| Topic                   | Description                        | Reference                                                  |
+| ----------------------- | ---------------------------------- | ---------------------------------------------------------- |
+| Permissions & Migration | Required permissions, legacy paths | [best-practices-usage](references/best-practices-usage.md) |
+
+## Quick Reference
 
 ```yaml
-# Workflow — 写在 jobs 下
-uses: avotokyo/workflows/.github/workflows/unit-test.yml@main
+# Workflow — under jobs
+jobs:
+  test:
+    uses: avotokyo/workflows/.github/workflows/unit-test.yml@main
 
-# Action — 写在 steps 下
-uses: avotokyo/workflows/actions/setup@main
+# Action — under steps
+steps:
+  - uses: avotokyo/workflows/actions/setup@main
 ```
 
-## 注意
-
-- `coverage` 需 `permissions: id-token: write`
-- `release` / `publish` 需 `permissions: contents: write` + `id-token: write`
-- `test` / `unit-test` 的 `os-matrix` 格式：`'"ubuntu-latest", "windows-latest"'`
-
-按需打开 [references/](references/) 中对应文件，勿一次读取全部。
+Read **one** reference file for the component you need. Do not load all references at once.

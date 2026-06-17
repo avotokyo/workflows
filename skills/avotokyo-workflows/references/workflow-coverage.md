@@ -1,6 +1,9 @@
-# coverage
+---
+name: workflow-coverage
+description: Run coverage tests and upload to Codecov
+---
 
-运行覆盖率测试并上传 Codecov。
+# Coverage Workflow
 
 ```yaml
 jobs:
@@ -12,12 +15,12 @@ jobs:
 
 ## Inputs
 
-| Input | 默认 | 说明 |
-|-------|------|------|
-| `test` | `vp test run --coverage` | 覆盖率命令 |
-| `build` | `vp run build` | 测试前构建 |
+| Input   | Default                  | Description      |
+| ------- | ------------------------ | ---------------- |
+| `test`  | `vp test run --coverage` | Coverage command |
+| `build` | `vp run build`           | Pre-test build   |
 
-## 示例
+## Example
 
 ```yaml
 jobs:
