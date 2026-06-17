@@ -21,4 +21,4 @@ jobs:
 
 ---
 
-Inspired by [sxzz/workflows](https://github.com/sxzz/workflows).
+Forked from [sxzz/workflows](https://github.com/sxzz/workflows).
