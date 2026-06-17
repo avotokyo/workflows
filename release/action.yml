@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: ./setup-vp
+        uses: ../setup-vp
         with:
           fetch-all: true
           cache: false
