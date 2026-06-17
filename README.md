@@ -4,7 +4,7 @@ TypeScript / Vite+ 项目的 GitHub Actions 工作流集合。
 
 | 路径                                | 说明            |
 | ----------------------------------- | --------------- |
-| [`setup`](./setup/action.yml) | 配置 Vite+ 环境 |
+| [`setup`](./setup/action.yml)       | 配置 Vite+ 环境 |
 | [`uni-test`](./uni-test/action.yml) | 检查与单元测试  |
 | [`coverage`](./coverage/action.yml) | 覆盖率上报      |
 | [`release`](./release/action.yml)   | 发布            |
