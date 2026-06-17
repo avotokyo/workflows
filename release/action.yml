@@ -4,22 +4,31 @@ on:
   workflow_call:
     inputs:
       github-release:
+        description: 是否生成 GitHub Release 与 Changelog。
         required: false
         type: boolean
         default: true
+
       publish:
+        description: 是否发布到 npm Registry。
         required: false
         type: boolean
         default: false
+
       stage:
+        description: 是否执行 stage publish（预发布验证）。
         required: false
         type: boolean
         default: false
+
       build:
+        description: 发布前执行的构建命令。
         required: false
         type: string
         default: ""
+
       tag:
+        description: 发布时使用的 npm dist-tag。
         required: false
         type: string
         default: ""
@@ -41,16 +50,19 @@ jobs:
           cache: false
 
       - name: Generate GitHub Changelog
-        run: vpx changelogithub
-        continue-on-error: true
         if: ${{ inputs.github-release }}
+        continue-on-error: true
+        run: vpx changelogithub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
+        if: ${{ inputs.build != '' && (inputs.publish || inputs.stage) }}
         run: ${{ inputs.build }}
-        if: ${{ inputs.build && inputs.publish }}
 
       - name: Publish to NPM
-        run: vp pm ${{ inputs.stage && 'stage ' || '' }}publish --access public --no-git-checks ${{ inputs['tag'] && format('--tag {0}', inputs['tag']) || '' }} -r
         if: ${{ inputs.publish || inputs.stage }}
+        env:
+          VP_PM_CMD: ${{ inputs.stage && 'stage publish' || 'publish' }}
+          VP_PM_TAG: ${{ inputs.tag != '' && format('--tag {0}', inputs.tag) || '' }}
+        run: vp pm $VP_PM_CMD --access public --no-git-checks $VP_PM_TAG -r
