@@ -1,20 +1,5 @@
 {
-  "type": "module",
   "private": true,
-  "packageManager": "pnpm@11.4.0",
-  "license": "MIT",
-  "scripts": {
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "typecheck": "echo skip typecheck",
-    "build": "echo skip build",
-    "test": "echo skip test"
-  },
-  "devDependencies": {
-    "@sxzz/eslint-config": "^8.1.0",
-    "@sxzz/prettier-config": "^2.3.1",
-    "eslint": "^10.4.0",
-    "prettier": "^3.8.3"
-  },
-  "prettier": "@sxzz/prettier-config"
+  "type": "module",
+  "packageManager": "pnpm@11.4.0"
 }

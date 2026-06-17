@@ -4,23 +4,23 @@ description: Setup Vite Plus environment
 inputs:
   persist-credentials:
     description: Whether to configure the token or SSH key with the local git config
-    default: 'false'
+    default: "false"
 
   fetch-all:
     description: Whether to fetch all history for all branches and tags.
-    default: 'false'
+    default: "false"
 
   node-version:
-    description: 'Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.'
-    default: 'lts/*'
+    description: "Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0."
+    default: "lts/*"
 
   auto-install:
     description: Whether to automatically install dependencies.
-    default: 'true'
+    default: "true"
 
   cache:
     description: Whether to enable caching for node modules.
-    default: 'true'
+    default: "true"
 
 runs:
   using: composite
@@ -37,4 +37,3 @@ runs:
         node-version: ${{ inputs.node-version }}
         cache: ${{ inputs.cache }}
         run-install: ${{ inputs.auto-install }}
-
