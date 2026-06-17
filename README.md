@@ -1,96 +1,100 @@
 # avotokyo/workflows
 
-TypeScript / Vite+ 项目的 GitHub Actions 工作流集合。
+面向 TypeScript / Vite+ 项目的可复用 [GitHub Actions](https://github.com/features/actions) 集合，包含 composite actions 与可复用 workflows，并提供配套的 [Agent Skill](https://agentskills.io/home) 供 AI 按需查阅用法。
 
-## 目录结构
+> [!NOTE]
+> 推荐优先使用**组合 Workflow**（`unit-test`、`release`）快速接入；需要更细粒度控制时再选用原子 workflow 或 action。
 
-```
-.
-├── actions/                      # 原子 Composite Actions
-│   ├── setup/                    # Checkout + 安装 Vite+
-│   ├── run/                      # 执行 shell 命令
-│   ├── changelog/                # 生成 GitHub Changelog
-│   ├── publish-npm/              # 发布到 npm
-│   ├── upload-codecov/           # 上传覆盖率到 Codecov
-│   └── autofix-commit/           # 提交自动修复变更
-└── .github/workflows/
-    ├── check.yml                 # 原子：代码检查
-    ├── test.yml                  # 原子：矩阵单元测试
-    ├── changelog.yml             # 原子：生成 Changelog
-    ├── publish.yml               # 原子：构建并发布
-    ├── coverage.yml              # 原子：覆盖率测试 + 上报
-    ├── autofix.yml               # 原子：自动修复
-    ├── unit-test.yml             # 组合：check + test
-    └── release.yml               # 组合：changelog + publish
+## 安装
+
+### 在项目中引用 Workflow
+
+在消费方仓库的 `.github/workflows/*.yml` 中通过 `uses` 引用（将 `@main` 替换为 tag 或 commit SHA）：
+
+```yaml
+jobs:
+  test:
+    uses: avotokyo/workflows/.github/workflows/unit-test.yml@main
 ```
 
-### 分层设计
+### 安装 Agent Skill
 
-| 层级               | 说明                                           |
-| ------------------ | ---------------------------------------------- |
-| **Actions**        | 最小可复用步骤，可在任意 job 的 `steps` 中引用 |
-| **原子 Workflows** | 单一职责的可复用 workflow，对应一个 job        |
-| **组合 Workflows** | 编排多个原子 workflow，提供开箱即用的完整流程  |
+为 Cursor 等 Agent 安装本仓库的使用说明（按需加载，不占用多余上下文）：
 
-## 原子 Workflows
+```bash
+pnpx skills add avotokyo/workflows --skill=avotokyo-workflows
+```
 
-| 路径                                               | 说明                          |
-| -------------------------------------------------- | ----------------------------- |
-| [check.yml](./.github/workflows/check.yml)         | 单 OS 代码检查，可选前置构建  |
-| [test.yml](./.github/workflows/test.yml)           | 多 OS / Node 矩阵单元测试     |
-| [changelog.yml](./.github/workflows/changelog.yml) | 生成 GitHub Release Changelog |
-| [publish.yml](./.github/workflows/publish.yml)     | 构建并发布到 npm              |
-| [coverage.yml](./.github/workflows/coverage.yml)   | 覆盖率测试并上传 Codecov      |
-| [autofix.yml](./.github/workflows/autofix.yml)     | 自动修复代码风格并提交        |
+全局安装：
 
-## 组合 Workflows
+```bash
+pnpx skills add avotokyo/workflows --skill=avotokyo-workflows -g
+```
 
-| 路径                                               | 组合                | 说明               |
-| -------------------------------------------------- | ------------------- | ------------------ |
-| [unit-test.yml](./.github/workflows/unit-test.yml) | check + test        | 完整 CI 检查与测试 |
-| [release.yml](./.github/workflows/release.yml)     | changelog + publish | 完整发布流程       |
+Skill 路径：[skills/avotokyo-workflows](./skills/avotokyo-workflows)。详见 [skills CLI](https://github.com/vercel-labs/skills)。
+
+## Workflows
+
+### 组合 Workflows
+
+> 推荐入门
+
+开箱即用的完整流程，编排多个原子 workflow。
+
+| Workflow | 说明 | 路径 |
+|----------|------|------|
+| unit-test | Check + 多 OS / Node 矩阵测试 | [`.github/workflows/unit-test.yml`](./.github/workflows/unit-test.yml) |
+| release | Changelog + npm 发布 | [`.github/workflows/release.yml`](./.github/workflows/release.yml) |
+
+### 原子 Workflows
+
+单一职责，可按需自行组合。
+
+| Workflow | 说明 | 路径 |
+|----------|------|------|
+| check | 单 OS 代码检查 | [`.github/workflows/check.yml`](./.github/workflows/check.yml) |
+| test | 多 OS / Node 矩阵测试 | [`.github/workflows/test.yml`](./.github/workflows/test.yml) |
+| changelog | 生成 GitHub Changelog | [`.github/workflows/changelog.yml`](./.github/workflows/changelog.yml) |
+| publish | 构建并发布 npm | [`.github/workflows/publish.yml`](./.github/workflows/publish.yml) |
+| coverage | 覆盖率测试 + Codecov | [`.github/workflows/coverage.yml`](./.github/workflows/coverage.yml) |
+| autofix | 自动修复并提交 | [`.github/workflows/autofix.yml`](./.github/workflows/autofix.yml) |
+
+引用格式：
+
+```yaml
+uses: avotokyo/workflows/.github/workflows/<name>.yml@main
+```
 
 ## Actions
 
-| 路径                                                  | 说明                         |
-| ----------------------------------------------------- | ---------------------------- |
-| [setup](./actions/setup/action.yml)                   | Checkout + 安装 Vite+ 与依赖 |
-| [run](./actions/run/action.yml)                       | 执行 shell 命令              |
-| [changelog](./actions/changelog/action.yml)           | 运行 `changelogithub`        |
-| [publish-npm](./actions/publish-npm/action.yml)       | 运行 `vp pm publish`         |
-| [upload-codecov](./actions/upload-codecov/action.yml) | 上传覆盖率到 Codecov         |
-| [autofix-commit](./actions/autofix-commit/action.yml) | 通过 autofix-ci 提交变更     |
+可在任意 job 的 `steps` 中引用的 composite actions。
 
-## 使用示例
+| Action | 说明 | 路径 |
+|--------|------|------|
+| setup | Checkout + 安装 Vite+ 与依赖 | [`actions/setup`](./actions/setup/action.yml) |
+| run | 执行 shell 命令 | [`actions/run`](./actions/run/action.yml) |
+| changelog | 运行 `changelogithub` | [`actions/changelog`](./actions/changelog/action.yml) |
+| publish-npm | `vp pm publish` | [`actions/publish-npm`](./actions/publish-npm/action.yml) |
+| upload-codecov | 上传覆盖率到 Codecov | [`actions/upload-codecov`](./actions/upload-codecov/action.yml) |
+| autofix-commit | autofix-ci 提交变更 | [`actions/autofix-commit`](./actions/autofix-commit/action.yml) |
 
-### 组合 Workflow（推荐）
+引用格式：
 
 ```yaml
-# .github/workflows/ci.yml
+uses: avotokyo/workflows/actions/<name>@main
+```
+
+## 快速上手
+
+### CI
+
+```yaml
 name: CI
 on: [push, pull_request]
 
 jobs:
   test:
     uses: avotokyo/workflows/.github/workflows/unit-test.yml@main
-```
-
-### 原子 Workflow（按需组合）
-
-```yaml
-name: CI
-on: [push, pull_request]
-
-jobs:
-  check:
-    uses: avotokyo/workflows/.github/workflows/check.yml@main
-
-  test:
-    needs: check
-    uses: avotokyo/workflows/.github/workflows/test.yml@main
-    with:
-      os-matrix: '"ubuntu-latest"'
-      node-versions: "22"
 ```
 
 ### CI + 覆盖率
@@ -126,46 +130,32 @@ jobs:
       id-token: write
 ```
 
-仅发布、跳过 Changelog：
+更多示例与 inputs 说明见 [skills/avotokyo-workflows](./skills/avotokyo-workflows)。
 
-```yaml
-jobs:
-  publish:
-    uses: avotokyo/workflows/.github/workflows/publish.yml@main
-    with:
-      build: vp run build
-    permissions:
-      contents: write
-      id-token: write
+## 目录结构
+
+```
+.
+├── actions/                  # Composite Actions（step 级）
+├── .github/workflows/        # 可复用 Workflows（job 级）
+└── skills/avotokyo-workflows/  # Agent Skill（按需查阅）
 ```
 
-### 单独使用 Action
-
-```yaml
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: avotokyo/workflows/actions/setup@main
-        with:
-          cache: true
-          node-version: "22"
-      - uses: avotokyo/workflows/actions/run@main
-        with:
-          command: vp run build
-```
+| 层级 | 路径 | 用途 |
+|------|------|------|
+| Actions | `actions/*/action.yml` | 最小可复用步骤 |
+| 原子 Workflows | `.github/workflows/*.yml` | 单 job、单职责 |
+| 组合 Workflows | `.github/workflows/*.yml` | 编排原子 workflow |
 
 ## Migration
 
-| 旧路径                                         | 新路径                                                    |
-| ---------------------------------------------- | --------------------------------------------------------- |
-| `avotokyo/workflows/setup@main`                | `avotokyo/workflows/actions/setup@main`                   |
+| 旧路径 | 新路径 |
+|--------|--------|
+| `avotokyo/workflows/setup@main` | `avotokyo/workflows/actions/setup@main` |
 | `avotokyo/workflows/unit-test/action.yml@main` | `avotokyo/workflows/.github/workflows/unit-test.yml@main` |
-| `avotokyo/workflows/coverage/action.yml@main`  | `avotokyo/workflows/.github/workflows/coverage.yml@main`  |
-| `avotokyo/workflows/release/action.yml@main`   | `avotokyo/workflows/.github/workflows/release.yml@main`   |
-| `avotokyo/workflows/autofix/action.yml@main`   | `avotokyo/workflows/.github/workflows/autofix.yml@main`   |
-
-组合 workflow（`unit-test`、`release`）的 inputs 保持向后兼容。如需更细粒度控制，可改用对应的原子 workflow。
+| `avotokyo/workflows/coverage/action.yml@main` | `avotokyo/workflows/.github/workflows/coverage.yml@main` |
+| `avotokyo/workflows/release/action.yml@main` | `avotokyo/workflows/.github/workflows/release.yml@main` |
+| `avotokyo/workflows/autofix/action.yml@main` | `avotokyo/workflows/.github/workflows/autofix.yml@main` |
 
 ---
 
