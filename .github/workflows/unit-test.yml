@@ -65,7 +65,7 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: ../setup
+        uses: avotokyo/workflows/actions/setup@main
         with:
           fetch-all: false
           cache: true
@@ -92,7 +92,7 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: ../setup
+        uses: avotokyo/workflows/actions/setup@main
         with:
           fetch-all: false
           cache: true

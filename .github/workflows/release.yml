@@ -44,7 +44,7 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: ../setup
+        uses: avotokyo/workflows/actions/setup@main
         with:
           fetch-all: true
           cache: false
