@@ -4,51 +4,55 @@ on:
   workflow_call:
     inputs:
       primary-os:
+        description: 指定 Check 任务运行的操作系统。
         required: false
         type: string
         default: ubuntu-latest
 
       os-matrix:
+        description: 指定 Test 矩阵任务使用的操作系统列表。
         required: false
         type: string
         default: '"ubuntu-latest", "windows-latest"'
 
       node-versions:
+        description: 指定 Test 矩阵任务使用的 Node.js 版本列表。
         required: false
         type: string
         default: "22,24,26"
 
       check:
+        description: 指定 Check 任务执行命令。
         required: false
         type: string
         default: vp check
 
       build:
+        description: 指定构建命令。
         required: false
         type: string
         default: vp run build
 
       test:
+        description: 指定单元测试执行命令。
         required: false
         type: string
         default: vp test
 
       skip-check:
+        description: 是否跳过 Check 任务。
         required: false
         type: boolean
         default: false
 
       skip-test:
+        description: 是否跳过 Test 任务。
         required: false
         type: boolean
         default: false
 
       build-for-check:
-        required: false
-        type: boolean
-        default: false
-
-      persist-credentials:
+        description: 是否在 Check 前执行构建。
         required: false
         type: boolean
         default: false
@@ -57,38 +61,44 @@ jobs:
   check:
     runs-on: ${{ inputs.primary-os }}
     if: ${{ !inputs.skip-check }}
+
     steps:
-      - name: Setup Vite Plus
+      - name: Setup Vite+
         uses: avotokyo/workflows/setup-vp@main
         with:
-          persist-credentials: ${{ inputs.persist-credentials }}
+          fetch-all: false
+          cache: true
 
       - name: Build
+        if: ${{ inputs.build-for-check && inputs.build != '' }}
         run: ${{ inputs.build }}
-        if: ${{ inputs.build-for-check }}
 
       - name: Check
-        run: ${{ inputs.check }}
         if: ${{ inputs.check != '' }}
+        run: ${{ inputs.check }}
 
   test:
+    if: ${{ !inputs.skip-test }}
+    runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         os: ${{ fromJson(format('[{0}]', inputs.os-matrix)) }}
         node-version: ${{ fromJson(format('[{0}]', inputs.node-versions)) }}
       fail-fast: false
 
-    if: ${{ !inputs.skip-test }}
-    runs-on: ${{ matrix.os }}
     steps:
-      - name: Setup Vite Plus
+      - name: Setup Vite+
         uses: avotokyo/workflows/setup-vp@main
         with:
+          fetch-all: false
+          cache: true
           node-version: ${{ matrix.node-version }}
-          persist-credentials: ${{ inputs.persist-credentials }}
 
       - name: Build
+        if: ${{ inputs.build != '' }}
         run: ${{ inputs.build }}
 
       - name: Unit Test
+        if: ${{ inputs.test != '' }}
         run: ${{ inputs.test }}

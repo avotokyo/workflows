@@ -4,11 +4,13 @@ on:
   workflow_call:
     inputs:
       test:
+        description: 指定覆盖率测试执行命令。
         required: false
         type: string
         default: vp test run --coverage
 
       build:
+        description: 测试前执行的构建命令。
         required: false
         type: string
         default: vp run build
@@ -18,14 +20,20 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+
     steps:
-      - name: Setup Vite Plus
+      - name: Setup Vite+
         uses: avotokyo/workflows/setup-vp@main
+        with:
+          fetch-all: false
+          cache: true
 
       - name: Build
+        if: ${{ inputs.build != '' }}
         run: ${{ inputs.build }}
 
       - name: Coverage
+        if: ${{ inputs.test != '' }}
         run: ${{ inputs.test }}
 
       - name: Upload coverage reports to Codecov
