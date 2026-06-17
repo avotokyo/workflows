@@ -34,35 +34,14 @@ on:
         default: ""
 
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-latest
+  changelog:
+    if: ${{ inputs.github-release }}
+    uses: ./.github/workflows/changelog.yml
 
-    permissions:
-      contents: write
-      id-token: write
-
-    steps:
-      - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
-        with:
-          fetch-all: true
-          cache: false
-
-      - name: Generate GitHub Changelog
-        if: ${{ inputs.github-release }}
-        continue-on-error: true
-        run: vpx changelogithub
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build
-        if: ${{ inputs.build != '' && (inputs.publish || inputs.stage) }}
-        run: ${{ inputs.build }}
-
-      - name: Publish to NPM
-        if: ${{ inputs.publish || inputs.stage }}
-        env:
-          VP_PM_CMD: ${{ inputs.stage && 'stage publish' || 'publish' }}
-          VP_PM_TAG: ${{ inputs.tag != '' && format('--tag {0}', inputs.tag) || '' }}
-        run: vp pm $VP_PM_CMD --access public --no-git-checks $VP_PM_TAG -r
+  publish:
+    if: ${{ inputs.publish || inputs.stage }}
+    uses: ./.github/workflows/publish.yml
+    with:
+      build: ${{ inputs.build }}
+      stage: ${{ inputs.stage }}
+      tag: ${{ inputs.tag }}

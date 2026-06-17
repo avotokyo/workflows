@@ -1,0 +1,22 @@
+name: Changelog
+
+on:
+  workflow_call:
+
+jobs:
+  changelog:
+    name: Changelog
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Setup Vite+
+        uses: avotokyo/workflows/actions/setup@main
+        with:
+          fetch-all: true
+          cache: false
+
+      - name: Generate GitHub Changelog
+        uses: avotokyo/workflows/actions/changelog@main

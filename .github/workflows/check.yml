@@ -1,0 +1,52 @@
+name: Check
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: 运行 Check 任务的操作系统。
+        required: false
+        type: string
+        default: ubuntu-latest
+
+      check:
+        description: Check 执行命令。
+        required: false
+        type: string
+        default: vp check
+
+      build:
+        description: 构建命令。
+        required: false
+        type: string
+        default: vp run build
+
+      build-for-check:
+        description: 是否在 Check 前执行构建。
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  check:
+    name: Check
+    runs-on: ${{ inputs.os }}
+
+    steps:
+      - name: Setup Vite+
+        uses: avotokyo/workflows/actions/setup@main
+        with:
+          fetch-all: false
+          cache: true
+
+      - name: Build
+        if: ${{ inputs.build-for-check && inputs.build != '' }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.build }}
+
+      - name: Check
+        if: ${{ inputs.check != '' }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.check }}

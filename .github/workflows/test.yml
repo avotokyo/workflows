@@ -1,0 +1,60 @@
+name: Test
+
+on:
+  workflow_call:
+    inputs:
+      os-matrix:
+        description: Test 矩阵任务使用的操作系统列表。
+        required: false
+        type: string
+        default: '"ubuntu-latest", "windows-latest"'
+
+      node-versions:
+        description: Test 矩阵任务使用的 Node.js 版本列表。
+        required: false
+        type: string
+        default: "22,24,26"
+
+      build:
+        description: 构建命令。
+        required: false
+        type: string
+        default: vp run build
+
+      test:
+        description: 单元测试执行命令。
+        required: false
+        type: string
+        default: vp test
+
+jobs:
+  test:
+    name: Test
+
+    strategy:
+      matrix:
+        os: ${{ fromJson(format('[{0}]', inputs.os-matrix)) }}
+        node-version: ${{ fromJson(format('[{0}]', inputs.node-versions)) }}
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Setup Vite+
+        uses: avotokyo/workflows/actions/setup@main
+        with:
+          fetch-all: false
+          cache: true
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build
+        if: ${{ inputs.build != '' }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.build }}
+
+      - name: Unit Test
+        if: ${{ inputs.test != '' }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.test }}

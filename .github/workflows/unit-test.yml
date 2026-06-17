@@ -59,49 +59,19 @@ on:
 
 jobs:
   check:
-    name: Check
     if: ${{ !inputs.skip-check }}
-    runs-on: ${{ inputs.primary-os }}
-
-    steps:
-      - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
-        with:
-          fetch-all: false
-          cache: true
-
-      - name: Build
-        if: ${{ inputs.build-for-check && inputs.build != '' }}
-        run: ${{ inputs.build }}
-
-      - name: Check
-        if: ${{ inputs.check != '' }}
-        run: ${{ inputs.check }}
+    uses: ./.github/workflows/check.yml
+    with:
+      os: ${{ inputs.primary-os }}
+      check: ${{ inputs.check }}
+      build: ${{ inputs.build }}
+      build-for-check: ${{ inputs.build-for-check }}
 
   test:
-    name: Test
     if: ${{ !inputs.skip-test }}
-
-    strategy:
-      matrix:
-        os: ${{ fromJson(format('[{0}]', inputs.os-matrix)) }}
-        node-version: ${{ fromJson(format('[{0}]', inputs.node-versions)) }}
-      fail-fast: false
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
-        with:
-          fetch-all: false
-          cache: true
-          node-version: ${{ matrix.node-version }}
-
-      - name: Build
-        if: ${{ inputs.build != '' }}
-        run: ${{ inputs.build }}
-
-      - name: Unit Test
-        if: ${{ inputs.test != '' }}
-        run: ${{ inputs.test }}
+    uses: ./.github/workflows/test.yml
+    with:
+      os-matrix: ${{ inputs.os-matrix }}
+      node-versions: ${{ inputs.node-versions }}
+      build: ${{ inputs.build }}
+      test: ${{ inputs.test }}

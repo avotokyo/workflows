@@ -1,0 +1,13 @@
+name: Run
+description: 执行 shell 命令。
+
+inputs:
+  command:
+    description: 要执行的命令。
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - run: ${{ inputs.command }}
+      shell: bash

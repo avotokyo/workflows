@@ -1,0 +1,12 @@
+name: Changelog
+description: 生成 GitHub Release 与 Changelog。
+
+runs:
+  using: composite
+  steps:
+    - name: Generate GitHub Changelog
+      run: vpx changelogithub
+      shell: bash
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ github.token }}

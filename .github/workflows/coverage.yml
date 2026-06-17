@@ -32,13 +32,15 @@ jobs:
 
       - name: Build
         if: ${{ inputs.build != '' }}
-        run: ${{ inputs.build }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.build }}
 
       - name: Coverage
         if: ${{ inputs.test != '' }}
-        run: ${{ inputs.test }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.test }}
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
-        with:
-          use_oidc: true
+        uses: avotokyo/workflows/actions/upload-codecov@main
