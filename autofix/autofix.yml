@@ -9,29 +9,28 @@ on:
   workflow_call:
     inputs:
       command:
+        description: 指定自动修复执行命令。
         required: false
         type: string
         default: vp check --fix
       os:
+        description: 指定运行自动修复任务的操作系统。
         required: false
         type: string
         default: ubuntu-latest
-      persist-credentials:
-        required: false
-        type: boolean
-        default: false
 
 jobs:
   autofix:
-    runs-on: ${{ inputs.os || 'ubuntu-slim' }}
+    runs-on: ${{ inputs.os }}
     permissions:
       contents: read
 
     steps:
       - name: Setup Vite Plus
-        uses: bjmhe/workflows/setup-vp@vp
+        uses: avotokyo/workflows/setup-vp@main
         with:
-          persist-credentials: ${{ inputs.persist-credentials }}
+          fetch-all: false
+          cache: true
 
       - name: Fix
         run: ${{ inputs.command }}
