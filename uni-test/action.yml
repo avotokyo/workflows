@@ -59,8 +59,9 @@ on:
 
 jobs:
   check:
-    runs-on: ${{ inputs.primary-os }}
+    name: Check
     if: ${{ !inputs.skip-check }}
+    runs-on: ${{ inputs.primary-os }}
 
     steps:
       - name: Setup Vite+
@@ -78,14 +79,16 @@ jobs:
         run: ${{ inputs.check }}
 
   test:
+    name: Test
     if: ${{ !inputs.skip-test }}
-    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
         os: ${{ fromJson(format('[{0}]', inputs.os-matrix)) }}
         node-version: ${{ fromJson(format('[{0}]', inputs.node-versions)) }}
       fail-fast: false
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Setup Vite+
