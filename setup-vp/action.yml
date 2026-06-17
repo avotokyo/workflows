@@ -28,10 +28,6 @@ inputs:
     description: 是否在初始化完成后自动执行 `vp install`。
     default: "true"
 
-  sfw:
-    description: 是否使用 Socket Firewall Free 包装执行 `vp install`。
-    default: "false"
-
   cache:
     description: 是否启用依赖缓存功能。
     default: "true"
@@ -65,5 +61,4 @@ runs:
         cache-dependency-path: ${{ inputs.cache-dependency-path }}
         registry-url: ${{ inputs.registry-url }}
         scope: ${{ inputs.scope }}
-        sfw: ${{ inputs.sfw }}
         run-install: ${{ inputs.auto-install }}
