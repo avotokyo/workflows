@@ -4,27 +4,27 @@
 
 ## Workflow 路径对照
 
-| 旧路径 | 新路径 |
-|--------|--------|
-| `.github/workflows/unit-test.yml` | `.github/workflows/composite/unit-test.yml` |
-| `.github/workflows/release.yml` | `.github/workflows/composite/release.yml` |
-| `.github/workflows/check.yml` | `.github/workflows/ci/check.yml` |
-| `.github/workflows/test.yml` | `.github/workflows/ci/test.yml` |
-| `.github/workflows/coverage.yml` | `.github/workflows/ci/coverage.yml` |
-| `.github/workflows/autofix.yml` | `.github/workflows/ci/autofix.yml` |
-| `.github/workflows/changelog.yml` | `.github/workflows/release/changelog.yml` |
-| `.github/workflows/publish.yml` | `.github/workflows/release/publish.yml` |
-| `.github/workflows/publish-npm.yml` | `.github/workflows/release/publish-npm.yml` |
+| 旧路径                                 | 新路径                                         |
+| -------------------------------------- | ---------------------------------------------- |
+| `.github/workflows/unit-test.yml`      | `.github/workflows/composite/unit-test.yml`    |
+| `.github/workflows/release.yml`        | `.github/workflows/composite/release.yml`      |
+| `.github/workflows/check.yml`          | `.github/workflows/ci/check.yml`               |
+| `.github/workflows/test.yml`           | `.github/workflows/ci/test.yml`                |
+| `.github/workflows/coverage.yml`       | `.github/workflows/ci/coverage.yml`            |
+| `.github/workflows/autofix.yml`        | `.github/workflows/ci/autofix.yml`             |
+| `.github/workflows/changelog.yml`      | `.github/workflows/release/changelog.yml`      |
+| `.github/workflows/publish.yml`        | `.github/workflows/release/publish.yml`        |
+| `.github/workflows/publish-npm.yml`    | `.github/workflows/release/publish-npm.yml`    |
 | `.github/workflows/publish-github.yml` | `.github/workflows/release/publish-github.yml` |
 
 ## Action 路径对照
 
-| 旧路径 | 新路径 |
-|--------|--------|
-| `actions/setup` | `actions/core/setup` |
-| `actions/run` | `actions/core/run` |
-| `actions/changelog` | `actions/release/changelog` |
-| `actions/publish` | `actions/release/publish` |
+| 旧路径                   | 新路径                                |
+| ------------------------ | ------------------------------------- |
+| `actions/setup`          | `actions/core/setup`                  |
+| `actions/run`            | `actions/core/run`                    |
+| `actions/changelog`      | `actions/release/changelog`           |
+| `actions/publish`        | `actions/release/publish`             |
 | `actions/upload-codecov` | `actions/integrations/upload-codecov` |
 | `actions/autofix-commit` | `actions/integrations/autofix-commit` |
 

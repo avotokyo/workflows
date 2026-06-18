@@ -23,10 +23,10 @@ pnpx skills add avotokyo/workflows --skill=avotokyo-workflows
 
 ## 推荐入口
 
-| Workflow | 路径 | 说明 |
-| -------- | ---- | ---- |
-| `unit-test` | `composite/unit-test.yml` | CI：Check + 多 OS / Node 矩阵测试 |
-| `release` | `composite/release.yml` | 发布：Changelog + 按 `type` 发布（npm / GitHub Packages） |
+| Workflow    | 路径                      | 说明                                                      |
+| ----------- | ------------------------- | --------------------------------------------------------- |
+| `unit-test` | `composite/unit-test.yml` | CI：Check + 多 OS / Node 矩阵测试                         |
+| `release`   | `composite/release.yml`   | 发布：Changelog + 按 `type` 发布（npm / GitHub Packages） |
 
 ## 快速上手
 
@@ -66,12 +66,12 @@ jobs:
 
 ## 文档
 
-| 文档 | 说明 |
-| ---- | ---- |
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | 三层架构与目录约定 |
-| [MIGRATION.md](./MIGRATION.md) | 旧路径迁移对照（2026-06-19 重组） |
-| [skills/avotokyo-workflows](./skills/avotokyo-workflows) | Agent 完整组件参考 |
-| [.github/workflows/README.md](./.github/workflows/README.md) | Workflow 索引 |
-| [actions/README.md](./actions/README.md) | Action 索引 |
+| 文档                                                         | 说明                              |
+| ------------------------------------------------------------ | --------------------------------- |
+| [ARCHITECTURE.md](./ARCHITECTURE.md)                         | 三层架构与目录约定                |
+| [MIGRATION.md](./MIGRATION.md)                               | 旧路径迁移对照（2026-06-19 重组） |
+| [skills/avotokyo-workflows](./skills/avotokyo-workflows)     | Agent 完整组件参考                |
+| [.github/workflows/README.md](./.github/workflows/README.md) | Workflow 索引                     |
+| [actions/README.md](./actions/README.md)                     | Action 索引                       |
 
 Forked from [sxzz/workflows](https://github.com/sxzz/workflows)

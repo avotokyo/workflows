@@ -16,10 +16,10 @@ avotokyo/workflows 采用三层模型组织可复用的 GitHub Actions 组件。
             └─ 内部再 uses: actions/checkout, voidzero-dev/setup-vp 等第三方
 ```
 
-| 层级 | 目录 | 引用方式 | 职责 |
-|------|------|----------|------|
-| 组合 Workflow | `.github/workflows/composite/` | job 级 `uses:` | 编排多个原子 workflow，提供 CI / 发布入口 |
-| 原子 Workflow | `.github/workflows/ci/`、`release/` | job 级 `uses:` | 单 job 工作流，可单独使用或组合 |
+| 层级             | 目录                                         | 引用方式        | 职责                                      |
+| ---------------- | -------------------------------------------- | --------------- | ----------------------------------------- |
+| 组合 Workflow    | `.github/workflows/composite/`               | job 级 `uses:`  | 编排多个原子 workflow，提供 CI / 发布入口 |
+| 原子 Workflow    | `.github/workflows/ci/`、`release/`          | job 级 `uses:`  | 单 job 工作流，可单独使用或组合           |
 | Composite Action | `actions/core/`、`release/`、`integrations/` | step 级 `uses:` | 可复用步骤，供 workflow 或自定义 job 调用 |
 
 ## 目录结构
@@ -72,9 +72,9 @@ actions/
 
 `release/publish.yml` 按 `inputs.type` 路由：
 
-| type | 目标 workflow |
-|------|---------------|
-| `npm` | `release/publish-npm.yml` |
+| type     | 目标 workflow                |
+| -------- | ---------------------------- |
+| `npm`    | `release/publish-npm.yml`    |
 | `github` | `release/publish-github.yml` |
 
 Action 层 `actions/release/publish` 同样按 `type` 选择 registry，与 workflow 分发模式对应。
@@ -94,8 +94,8 @@ uses: avotokyo/workflows/actions/core/setup@main
 
 ## 文档
 
-| 文档 | 受众 | 内容 |
-|------|------|------|
-| [README.md](README.md) | 人类 | 快速上手 |
-| [MIGRATION.md](MIGRATION.md) | 人类 | 旧路径迁移对照 |
+| 文档                                                   | 受众  | 内容                  |
+| ------------------------------------------------------ | ----- | --------------------- |
+| [README.md](README.md)                                 | 人类  | 快速上手              |
+| [MIGRATION.md](MIGRATION.md)                           | 人类  | 旧路径迁移对照        |
 | [skills/avotokyo-workflows](skills/avotokyo-workflows) | Agent | 完整组件清单与 inputs |

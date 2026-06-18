@@ -43,10 +43,10 @@ permissions:
 
 Publish targets are **one implementation per type**, routed by thin dispatchers:
 
-| Layer    | Entry (with `type`)          | Implementation per type                              |
-| -------- | ---------------------------- | ---------------------------------------------------- |
-| Workflow | `release/publish.yml`        | `release/publish-npm.yml`, `release/publish-github.yml`, … |
-| Action   | —                            | `release/publish` (registry selected by `type`)      |
+| Layer    | Entry (with `type`)   | Implementation per type                                    |
+| -------- | --------------------- | ---------------------------------------------------------- |
+| Workflow | `release/publish.yml` | `release/publish-npm.yml`, `release/publish-github.yml`, … |
+| Action   | —                     | `release/publish` (registry selected by `type`)            |
 
 Callers pass `type` to `release/publish.yml`; it forwards to the matching implementation workflow.
 
@@ -91,10 +91,10 @@ with:
 
 ## Choosing a Layer
 
-| Need            | Use                                                                      |
-| --------------- | ------------------------------------------------------------------------ |
-| Quick CI        | [composite-unit-test](../workflows/composite-unit-test.md)                            |
-| Quick release   | [composite-release](../workflows/composite-release.md)                                |
-| Custom pipeline | Compose [workflows/*](../workflows/ci-check.md) or [actions/*](../actions/core-setup.md) |
+| Need            | Use                                                                                        |
+| --------------- | ------------------------------------------------------------------------------------------ |
+| Quick CI        | [composite-unit-test](../workflows/composite-unit-test.md)                                 |
+| Quick release   | [composite-release](../workflows/composite-release.md)                                     |
+| Custom pipeline | Compose [workflows/\*](../workflows/ci-check.md) or [actions/\*](../actions/core-setup.md) |
 
 Read one reference file at a time.
