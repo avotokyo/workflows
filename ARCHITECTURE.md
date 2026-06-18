@@ -97,5 +97,4 @@ uses: avotokyo/workflows/actions/core/setup@main
 | 文档                                                   | 受众  | 内容                  |
 | ------------------------------------------------------ | ----- | --------------------- |
 | [README.md](README.md)                                 | 人类  | 快速上手              |
-| [MIGRATION.md](MIGRATION.md)                           | 人类  | 旧路径迁移对照        |
 | [skills/avotokyo-workflows](skills/avotokyo-workflows) | Agent | 完整组件清单与 inputs |

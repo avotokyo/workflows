@@ -35,4 +35,4 @@ jobs:
     uses: avotokyo/workflows/.github/workflows/composite/unit-test.yml@main
 ```
 
-详见 [ARCHITECTURE.md](../../ARCHITECTURE.md) 与 [MIGRATION.md](../../MIGRATION.md)。
+详见 [ARCHITECTURE.md](../../ARCHITECTURE.md)。

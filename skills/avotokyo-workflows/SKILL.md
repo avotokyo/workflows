@@ -23,7 +23,6 @@ Repo: `avotokyo/workflows`. Pin with `@main` or a release tag.
 | ------------------------------------- | -------- | ------------------------------------------------------------------------- |
 | [README](../../README.md)             | Humans   | Quick install, recommended entry points, minimal CI / release examples    |
 | [ARCHITECTURE](../../ARCHITECTURE.md) | Humans   | Directory layout, three-layer model, composition patterns                 |
-| [MIGRATION](../../MIGRATION.md)       | Humans   | Old → new path mapping for upgrading consumers                            |
 | This skill                            | Agents   | Full component inventory, inputs, permissions, patterns, extension guides |
 
 Read **one** reference file below for the component you need. Do not load all references at once.

@@ -30,4 +30,4 @@ steps:
   - uses: avotokyo/workflows/actions/core/setup@main
 ```
 
-详见 [ARCHITECTURE.md](../ARCHITECTURE.md) 与 [MIGRATION.md](../MIGRATION.md)。
+详见 [ARCHITECTURE.md](../ARCHITECTURE.md)。
