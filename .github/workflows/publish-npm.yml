@@ -1,0 +1,51 @@
+name: Publish NPM
+
+on:
+  workflow_call:
+    inputs:
+      build:
+        description: 发布前执行的构建命令。
+        required: false
+        type: string
+        default: ""
+
+      stage:
+        description: 是否执行 stage publish（预发布验证）。
+        required: false
+        type: boolean
+        default: false
+
+      tag:
+        description: 发布时使用的 npm dist-tag。
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  publish:
+    name: Publish NPM
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Setup Vite+
+        uses: avotokyo/workflows/actions/setup@main
+        with:
+          fetch-all: true
+          cache: false
+
+      - name: Build
+        if: ${{ inputs.build != '' }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.build }}
+
+      - name: Publish to NPM
+        uses: avotokyo/workflows/actions/publish@main
+        with:
+          type: npm
+          stage: ${{ inputs.stage }}
+          tag: ${{ inputs.tag }}

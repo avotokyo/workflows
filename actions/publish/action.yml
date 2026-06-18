@@ -1,0 +1,26 @@
+name: Publish
+description: 发布包到 npm Registry 或 GitHub Packages。
+
+inputs:
+  type:
+    description: 发布类型（npm 或 github）。
+    default: "npm"
+
+  stage:
+    description: 是否执行 stage publish（预发布验证）。
+    default: "false"
+
+  tag:
+    description: 发布时使用的 npm dist-tag。
+
+runs:
+  using: composite
+  steps:
+    - name: Publish
+      run: vp pm $VP_PM_CMD $VP_PM_ACCESS --no-git-checks $VP_PM_TAG -r
+      shell: bash
+      env:
+        VP_PM_CMD: ${{ inputs.stage == 'true' && 'stage publish' || 'publish' }}
+        VP_PM_ACCESS: ${{ inputs.type == 'github' && '' || '--access public' }}
+        VP_PM_TAG: ${{ inputs.tag != '' && format('--tag {0}', inputs.tag) || '' }}
+        NODE_AUTH_TOKEN: ${{ inputs.type == 'github' && github.token || '' }}

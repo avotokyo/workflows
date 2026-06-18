@@ -74,7 +74,7 @@ uses: avotokyo/workflows/.github/workflows/<name>.yml@main
 | setup          | Checkout + 安装 Vite+ 与依赖 | [`actions/setup`](./actions/setup/action.yml)                   |
 | run            | 执行 shell 命令              | [`actions/run`](./actions/run/action.yml)                       |
 | changelog      | 运行 `changelogithub`        | [`actions/changelog`](./actions/changelog/action.yml)           |
-| publish-npm    | `vp pm publish`              | [`actions/publish-npm`](./actions/publish-npm/action.yml)       |
+| publish      | `vp pm publish`（`type` 区分 registry） | [`actions/publish`](./actions/publish/action.yml)               |
 | upload-codecov | 上传覆盖率到 Codecov         | [`actions/upload-codecov`](./actions/upload-codecov/action.yml) |
 | autofix-commit | autofix-ci 提交变更          | [`actions/autofix-commit`](./actions/autofix-commit/action.yml) |
 

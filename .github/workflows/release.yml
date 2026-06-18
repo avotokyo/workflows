@@ -10,10 +10,16 @@ on:
         default: true
 
       publish:
-        description: 是否发布到 npm Registry。
+        description: 是否发布到 Registry。
         required: false
         type: boolean
         default: false
+
+      type:
+        description: 发布类型（npm 或 github）。
+        required: false
+        type: string
+        default: "npm"
 
       stage:
         description: 是否执行 stage publish（预发布验证）。
@@ -42,6 +48,7 @@ jobs:
     if: ${{ inputs.publish || inputs.stage }}
     uses: ./.github/workflows/publish.yml
     with:
+      type: ${{ inputs.type }}
       build: ${{ inputs.build }}
       stage: ${{ inputs.stage }}
       tag: ${{ inputs.tag }}

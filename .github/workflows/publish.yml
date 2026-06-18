@@ -3,6 +3,12 @@ name: Publish
 on:
   workflow_call:
     inputs:
+      type:
+        description: 发布类型（npm 或 github）。
+        required: false
+        type: string
+        default: "npm"
+
       build:
         description: 发布前执行的构建命令。
         required: false
@@ -22,29 +28,18 @@ on:
         default: ""
 
 jobs:
-  publish:
-    name: Publish
-    runs-on: ubuntu-latest
+  npm:
+    if: ${{ inputs.type == 'npm' }}
+    uses: ./.github/workflows/publish-npm.yml
+    with:
+      build: ${{ inputs.build }}
+      stage: ${{ inputs.stage }}
+      tag: ${{ inputs.tag }}
 
-    permissions:
-      contents: write
-      id-token: write
-
-    steps:
-      - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
-        with:
-          fetch-all: true
-          cache: false
-
-      - name: Build
-        if: ${{ inputs.build != '' }}
-        uses: avotokyo/workflows/actions/run@main
-        with:
-          command: ${{ inputs.build }}
-
-      - name: Publish to NPM
-        uses: avotokyo/workflows/actions/publish-npm@main
-        with:
-          stage: ${{ inputs.stage }}
-          tag: ${{ inputs.tag }}
+  github:
+    if: ${{ inputs.type == 'github' }}
+    uses: ./.github/workflows/publish-github.yml
+    with:
+      build: ${{ inputs.build }}
+      stage: ${{ inputs.stage }}
+      tag: ${{ inputs.tag }}

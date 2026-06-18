@@ -1,0 +1,54 @@
+name: Publish GitHub
+
+on:
+  workflow_call:
+    inputs:
+      build:
+        description: 发布前执行的构建命令。
+        required: false
+        type: string
+        default: ""
+
+      stage:
+        description: 是否执行 stage publish（预发布验证）。
+        required: false
+        type: boolean
+        default: false
+
+      tag:
+        description: 发布时使用的 npm dist-tag。
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  publish:
+    name: Publish GitHub
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Setup Vite+
+        uses: avotokyo/workflows/actions/setup@main
+        with:
+          fetch-all: true
+          cache: false
+          registry-url: https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+
+      - name: Build
+        if: ${{ inputs.build != '' }}
+        uses: avotokyo/workflows/actions/run@main
+        with:
+          command: ${{ inputs.build }}
+
+      - name: Publish to GitHub Packages
+        uses: avotokyo/workflows/actions/publish@main
+        with:
+          type: github
+          stage: ${{ inputs.stage }}
+          tag: ${{ inputs.tag }}
