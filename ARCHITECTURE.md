@@ -19,7 +19,7 @@ avotokyo/workflows 采用三层模型组织可复用的 GitHub Actions 组件。
 | 层级             | 目录 / 命名                                  | 引用方式        | 职责                                      |
 | ---------------- | -------------------------------------------- | --------------- | ----------------------------------------- |
 | 组合 Workflow    | `.github/workflows/unit-test.yml` 等         | job 级 `uses:`  | 编排多个原子 workflow，提供 CI / 发布入口 |
-| 原子 Workflow    | `.github/workflows/ci-*.yml`、`release-*`  | job 级 `uses:`  | 单 job 工作流，可单独使用或组合           |
+| 原子 Workflow    | `.github/workflows/ci-*.yml`、`release-*`    | job 级 `uses:`  | 单 job 工作流，可单独使用或组合           |
 | Composite Action | `actions/core/`、`release/`、`integrations/` | step 级 `uses:` | 可复用步骤，供 workflow 或自定义 job 调用 |
 
 > **GitHub 限制：** 可复用 workflow（`workflow_call`）必须位于 `.github/workflows/` 顶层，不能放在子目录。因此所有 workflow 文件均使用 `ci-check.yml`、`release-publish.yml` 等扁平命名。

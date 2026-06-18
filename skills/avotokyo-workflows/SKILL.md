@@ -33,8 +33,8 @@ Read **one** reference file below for the component you need. Do not load all re
 
 Recommended entry points.
 
-| Name      | Workflow file             | Description                   | Reference                                                          |
-| --------- | ------------------------- | ----------------------------- | ------------------------------------------------------------------ |
+| Name      | Workflow file   | Description                   | Reference                                                          |
+| --------- | --------------- | ----------------------------- | ------------------------------------------------------------------ |
 | Unit Test | `unit-test.yml` | Check + matrix test CI        | [composite-unit-test](references/workflows/composite-unit-test.md) |
 | Release   | `release.yml`   | Changelog + publish by `type` | [composite-release](references/workflows/composite-release.md)     |
 
