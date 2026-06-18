@@ -30,7 +30,7 @@ on:
 jobs:
   npm:
     if: ${{ inputs.type == 'npm' }}
-    uses: ./.github/workflows/publish-npm.yml
+    uses: ./.github/workflows/release/publish-npm.yml
     with:
       build: ${{ inputs.build }}
       stage: ${{ inputs.stage }}
@@ -38,7 +38,7 @@ jobs:
 
   github:
     if: ${{ inputs.type == 'github' }}
-    uses: ./.github/workflows/publish-github.yml
+    uses: ./.github/workflows/release/publish-github.yml
     with:
       build: ${{ inputs.build }}
       stage: ${{ inputs.stage }}

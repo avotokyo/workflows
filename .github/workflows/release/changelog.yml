@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
+        uses: avotokyo/workflows/actions/core/setup@main
         with:
           fetch-all: true
           cache: false
 
       - name: Generate GitHub Changelog
-        uses: avotokyo/workflows/actions/changelog@main
+        uses: avotokyo/workflows/actions/release/changelog@main

@@ -25,22 +25,22 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
+        uses: avotokyo/workflows/actions/core/setup@main
         with:
           fetch-all: false
           cache: true
 
       - name: Build
         if: ${{ inputs.build != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ inputs.build }}
 
       - name: Coverage
         if: ${{ inputs.test != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ inputs.test }}
 
       - name: Upload coverage reports to Codecov
-        uses: avotokyo/workflows/actions/upload-codecov@main
+        uses: avotokyo/workflows/actions/integrations/upload-codecov@main

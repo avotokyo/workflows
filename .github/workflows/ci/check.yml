@@ -34,19 +34,19 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
+        uses: avotokyo/workflows/actions/core/setup@main
         with:
           fetch-all: false
           cache: true
 
       - name: Build
         if: ${{ inputs.build-for-check && inputs.build != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ inputs.build }}
 
       - name: Check
         if: ${{ inputs.check != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ inputs.check }}

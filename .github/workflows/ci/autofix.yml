@@ -30,16 +30,16 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
+        uses: avotokyo/workflows/actions/core/setup@main
         with:
           fetch-all: false
           cache: true
 
       - name: Fix
         if: ${{ github.event_name != 'workflow_call' || inputs.command != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ github.event_name == 'workflow_call' && inputs.command || 'vp check --fix' }}
 
       - name: Commit
-        uses: avotokyo/workflows/actions/autofix-commit@main
+        uses: avotokyo/workflows/actions/integrations/autofix-commit@main

@@ -9,13 +9,13 @@ Routes `type` to a per-registry atomic workflow. Add a new publish target by add
 
 | `type`   | Atomic workflow      | Reference                                             |
 | -------- | -------------------- | ----------------------------------------------------- |
-| `npm`    | `publish-npm.yml`    | [workflow-publish-npm](workflow-publish-npm.md)       |
-| `github` | `publish-github.yml` | [workflow-publish-github](workflow-publish-github.md) |
+| `npm`    | `publish-npm.yml`    | [workflow-publish-npm](release-publish-npm.md)       |
+| `github` | `publish-github.yml` | [workflow-publish-github](release-publish-github.md) |
 
 ```yaml
 jobs:
   publish:
-    uses: avotokyo/workflows/.github/workflows/publish.yml@main
+    uses: avotokyo/workflows/.github/workflows/release/publish.yml@main
     with:
       type: npm
     permissions:
@@ -37,7 +37,7 @@ jobs:
 ```yaml
 jobs:
   publish:
-    uses: avotokyo/workflows/.github/workflows/publish.yml@main
+    uses: avotokyo/workflows/.github/workflows/release/publish.yml@main
     with:
       type: github
       build: vp run build

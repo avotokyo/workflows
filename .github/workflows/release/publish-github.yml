@@ -1,4 +1,4 @@
-name: Publish NPM
+name: Publish GitHub
 
 on:
   workflow_call:
@@ -23,29 +23,32 @@ on:
 
 jobs:
   publish:
-    name: Publish NPM
+    name: Publish GitHub
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
-      id-token: write
+      contents: read
+      packages: write
 
     steps:
       - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
+        uses: avotokyo/workflows/actions/core/setup@main
         with:
           fetch-all: true
           cache: false
+          registry-url: https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
 
       - name: Build
         if: ${{ inputs.build != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ inputs.build }}
 
-      - name: Publish to NPM
-        uses: avotokyo/workflows/actions/publish@main
+      - name: Publish to GitHub Packages
+        uses: avotokyo/workflows/actions/release/publish@main
         with:
-          type: npm
+          type: github
           stage: ${{ inputs.stage }}
           tag: ${{ inputs.tag }}

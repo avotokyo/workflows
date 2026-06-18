@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Setup Vite+
-        uses: avotokyo/workflows/actions/setup@main
+        uses: avotokyo/workflows/actions/core/setup@main
         with:
           fetch-all: false
           cache: true
@@ -49,12 +49,12 @@ jobs:
 
       - name: Build
         if: ${{ inputs.build != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ inputs.build }}
 
       - name: Unit Test
         if: ${{ inputs.test != '' }}
-        uses: avotokyo/workflows/actions/run@main
+        uses: avotokyo/workflows/actions/core/run@main
         with:
           command: ${{ inputs.test }}
