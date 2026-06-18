@@ -27,6 +27,7 @@ pnpx skills add avotokyo/workflows --skill=avotokyo-workflows
 | ----------- | --------------- | --------------------------------------------------------- |
 | `unit-test` | `unit-test.yml` | CI：Check + 多 OS / Node 矩阵测试                         |
 | `release`   | `release.yml`   | 发布：Changelog + 按 `type` 发布（npm / GitHub Packages） |
+| `deploy`    | `deploy-pages.yml` | 部署：构建静态站点并发布到 GitHub Pages              |
 
 ## 快速上手
 
@@ -62,7 +63,35 @@ jobs:
 
 发布到 GitHub Packages 时增加 `type: github`，并将 `permissions` 改为 `contents: write` + `packages: write`。
 
+### 部署到 GitHub Pages
+
+仓库 Settings → Pages → Source 需选 **GitHub Actions**。
+
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+```
+
+Rspress 等输出到 `doc_build` 的项目：
+
+```yaml
+jobs:
+  deploy:
+    uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+    with:
+      artifact-path: doc_build
+      fetch-all: true
+```
+
 ---
+
 
 ## 文档
 

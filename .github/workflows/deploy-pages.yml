@@ -1,0 +1,82 @@
+name: Deploy Pages
+
+on:
+  workflow_call:
+    inputs:
+      build:
+        description: 构建命令。
+        required: false
+        type: string
+        default: vp run build
+
+      artifact-path:
+        description: 静态资源目录，传给 upload-pages-artifact。
+        required: false
+        type: string
+        default: dist
+
+      fetch-all:
+        description: 是否拉取完整 Git 历史（Rspress lastUpdated 等场景需 true）。
+        required: false
+        type: boolean
+        default: false
+
+      working-directory:
+        description: 指定用于依赖安装与相对路径解析的工作目录。
+        required: false
+        type: string
+        default: ""
+
+      environment:
+        description: GitHub Pages 部署环境名。
+        required: false
+        type: string
+        default: github-pages
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Vite+
+        uses: avotokyo/workflows/actions/core/setup@main
+        with:
+          fetch-all: ${{ inputs.fetch-all }}
+          working-directory: ${{ inputs.working-directory }}
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build
+        uses: avotokyo/workflows/actions/core/run@main
+        with:
+          command: ${{ inputs.build }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ inputs.artifact-path }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

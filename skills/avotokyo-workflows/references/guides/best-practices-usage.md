@@ -26,6 +26,7 @@ Pin `@main` or a release tag.
 | `release.yml`, `publish.yml` + `github` | `contents: write`, `packages: write` |
 | `publish-npm.yml`                       | `contents: write`, `id-token: write` |
 | `publish-github.yml`                    | `contents: read`, `packages: write`  |
+| `deploy-pages.yml`                      | `contents: read`, `pages: write`, `id-token: write` (defined in workflow) |
 
 ```yaml
 # npm (default)

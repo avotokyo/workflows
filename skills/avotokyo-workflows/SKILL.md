@@ -52,6 +52,7 @@ Single-job workflows. Compose manually for finer control.
 | Publish        | `release-publish.yml`        | Dispatch publish by `type`      | [release-publish](references/workflows/release-publish.md)               |
 | Publish NPM    | `release-publish-npm.yml`    | Build + npm Registry publish    | [release-publish-npm](references/workflows/release-publish-npm.md)       |
 | Publish GitHub | `release-publish-github.yml` | Build + GitHub Packages publish | [release-publish-github](references/workflows/release-publish-github.md) |
+| Deploy Pages   | `deploy-pages.yml`           | Build + GitHub Pages deploy     | [deploy-pages](references/workflows/deploy-pages.md)                     |
 
 ### Actions
 
