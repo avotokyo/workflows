@@ -23,9 +23,9 @@ pnpx skills add avotokyo/workflows --skill=avotokyo-workflows
 
 ## 推荐入口
 
-| Workflow    | 说明                                              |
-| ----------- | ------------------------------------------------- |
-| `unit-test` | CI：Check + 多 OS / Node 矩阵测试                 |
+| Workflow    | 说明                                                      |
+| ----------- | --------------------------------------------------------- |
+| `unit-test` | CI：Check + 多 OS / Node 矩阵测试                         |
 | `release`   | 发布：Changelog + 按 `type` 发布（npm / GitHub Packages） |
 
 ## 快速上手

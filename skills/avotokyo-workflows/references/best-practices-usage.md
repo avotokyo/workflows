@@ -19,13 +19,13 @@ Pin `@main` or a release tag.
 
 ## Required Permissions
 
-| Workflow / `type`              | Caller must pass                     |
-| ------------------------------ | ------------------------------------ |
-| `coverage.yml`                 | `id-token: write`                    |
-| `release.yml`, `publish.yml` + `npm` | `contents: write`, `id-token: write` |
+| Workflow / `type`                       | Caller must pass                     |
+| --------------------------------------- | ------------------------------------ |
+| `coverage.yml`                          | `id-token: write`                    |
+| `release.yml`, `publish.yml` + `npm`    | `contents: write`, `id-token: write` |
 | `release.yml`, `publish.yml` + `github` | `contents: write`, `packages: write` |
-| `publish-npm.yml`              | `contents: write`, `id-token: write` |
-| `publish-github.yml`           | `contents: read`, `packages: write`  |
+| `publish-npm.yml`                       | `contents: write`, `id-token: write` |
+| `publish-github.yml`                    | `contents: read`, `packages: write`  |
 
 ```yaml
 # npm (default)
@@ -43,10 +43,10 @@ permissions:
 
 Publish targets are **one implementation per type**, routed by thin dispatchers:
 
-| Layer    | Entry (with `type`) | Implementation per type                           |
-| -------- | ------------------- | ------------------------------------------------- |
-| Workflow | `publish.yml`       | `publish-npm.yml`, `publish-github.yml`, …        |
-| Action   | —                   | `publish` (registry selected by `type`)         |
+| Layer    | Entry (with `type`) | Implementation per type                    |
+| -------- | ------------------- | ------------------------------------------ |
+| Workflow | `publish.yml`       | `publish-npm.yml`, `publish-github.yml`, … |
+| Action   | —                   | `publish` (registry selected by `type`)    |
 
 Callers pass `type` to `publish.yml`; it forwards to the matching implementation workflow.
 

@@ -7,9 +7,9 @@ description: Dispatch publish by type to per-registry workflows
 
 Routes `type` to a per-registry atomic workflow. Add a new publish target by adding a workflow + one job here.
 
-| `type`   | Atomic workflow    | Reference                                      |
-| -------- | ------------------ | ---------------------------------------------- |
-| `npm`    | `publish-npm.yml`  | [workflow-publish-npm](workflow-publish-npm.md) |
+| `type`   | Atomic workflow      | Reference                                             |
+| -------- | -------------------- | ----------------------------------------------------- |
+| `npm`    | `publish-npm.yml`    | [workflow-publish-npm](workflow-publish-npm.md)       |
 | `github` | `publish-github.yml` | [workflow-publish-github](workflow-publish-github.md) |
 
 ```yaml
