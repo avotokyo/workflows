@@ -46,7 +46,7 @@ Publish targets are **one implementation per type**, routed by thin dispatchers:
 | Layer    | Entry (with `type`) | Implementation per type                           |
 | -------- | ------------------- | ------------------------------------------------- |
 | Workflow | `publish.yml`       | `publish-npm.yml`, `publish-github.yml`, …        |
-| Action   | —                   | `publish`（`type` 区分 registry）                 |
+| Action   | —                   | `publish` (registry selected by `type`)         |
 
 Callers pass `type` to `publish.yml`; it forwards to the matching implementation workflow.
 
@@ -60,6 +60,24 @@ To add e.g. `type: verdaccio`:
 4. **Docs** — add `workflow-publish-verdaccio.md`, update [workflow-publish](workflow-publish.md) type table
 
 No changes needed in [composite-release](composite-release.md) beyond documenting the new `type` value.
+
+## Common Patterns
+
+### CI + Coverage
+
+```yaml
+jobs:
+  test:
+    uses: avotokyo/workflows/.github/workflows/unit-test.yml@main
+
+  coverage:
+    needs: test
+    uses: avotokyo/workflows/.github/workflows/coverage.yml@main
+    permissions:
+      id-token: write
+```
+
+See [composite-unit-test](composite-unit-test.md) and [workflow-coverage](workflow-coverage.md).
 
 ## Matrix Input Format
 

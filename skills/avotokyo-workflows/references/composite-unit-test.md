@@ -46,3 +46,5 @@ with:
 ```
 
 Split into atomics: [workflow-check](workflow-check.md), [workflow-test](workflow-test.md).
+
+For CI + coverage, see [best-practices-usage](best-practices-usage.md#common-patterns).

@@ -17,48 +17,59 @@ Repo: `avotokyo/workflows`. Pin with `@main` or a release tag.
 
 > Based on avotokyo/workflows, updated 2026-06-18.
 
-## Composite Workflows
+## Documentation
 
-Recommended entry points. Read one file when implementing.
+| Doc | Audience | Content |
+| --- | -------- | ------- |
+| [README](../../README.md) | Humans | Quick install, recommended entry points, minimal CI / release examples |
+| This skill | Agents | Full component inventory, inputs, permissions, patterns, extension guides |
 
-| Topic     | Description             | Reference                                                |
-| --------- | ----------------------- | -------------------------------------------------------- |
-| Unit Test | Check + matrix test CI  | [composite-unit-test](references/composite-unit-test.md) |
-| Release   | Changelog + publish     | [composite-release](references/composite-release.md)     |
+Read **one** reference file below for the component you need. Do not load all references at once.
 
-## Workflows
+## Full Component Inventory
 
-Single-job reusable workflows. Compose manually when you need finer control.
+### Composite Workflows
 
-| Topic     | Description              | Reference                                              |
-| --------- | ------------------------ | ------------------------------------------------------ |
-| Check     | Lint/check on one OS     | [workflow-check](references/workflow-check.md)         |
-| Test      | Matrix OS × Node test    | [workflow-test](references/workflow-test.md)           |
-| Coverage  | Coverage test + Codecov  | [workflow-coverage](references/workflow-coverage.md)   |
-| Changelog | GitHub Release changelog | [workflow-changelog](references/workflow-changelog.md) |
-| Publish        | Dispatch publish by `type` | [workflow-publish](references/workflow-publish.md)         |
-| Publish NPM    | Build + npm publish        | [workflow-publish-npm](references/workflow-publish-npm.md) |
-| Publish GitHub | Build + GPR publish        | [workflow-publish-github](references/workflow-publish-github.md) |
-| Autofix   | Auto-fix and commit      | [workflow-autofix](references/workflow-autofix.md)     |
+Recommended entry points.
 
-## Actions
+| Name | Workflow file | Description | Reference |
+| ---- | ------------- | ----------- | --------- |
+| Unit Test | `unit-test.yml` | Check + matrix test CI | [composite-unit-test](references/composite-unit-test.md) |
+| Release | `release.yml` | Changelog + publish by `type` | [composite-release](references/composite-release.md) |
+
+### Atomic Workflows
+
+Single-job workflows. Compose manually for finer control.
+
+| Name | Workflow file | Description | Reference |
+| ---- | ------------- | ----------- | --------- |
+| Check | `check.yml` | Lint/check on one OS | [workflow-check](references/workflow-check.md) |
+| Test | `test.yml` | Matrix OS × Node test | [workflow-test](references/workflow-test.md) |
+| Coverage | `coverage.yml` | Coverage test + Codecov | [workflow-coverage](references/workflow-coverage.md) |
+| Changelog | `changelog.yml` | GitHub Release changelog | [workflow-changelog](references/workflow-changelog.md) |
+| Publish | `publish.yml` | Dispatch publish by `type` | [workflow-publish](references/workflow-publish.md) |
+| Publish NPM | `publish-npm.yml` | Build + npm Registry publish | [workflow-publish-npm](references/workflow-publish-npm.md) |
+| Publish GitHub | `publish-github.yml` | Build + GitHub Packages publish | [workflow-publish-github](references/workflow-publish-github.md) |
+| Autofix | `autofix.yml` | Auto-fix and commit | [workflow-autofix](references/workflow-autofix.md) |
+
+### Actions
 
 Composite steps for custom jobs.
 
-| Topic          | Description                  | Reference                                                    |
-| -------------- | ---------------------------- | ------------------------------------------------------------ |
-| Setup          | Checkout + Vite+ environment | [action-setup](references/action-setup.md)                   |
-| Run            | Execute a shell command      | [action-run](references/action-run.md)                       |
-| Changelog      | Run changelogithub (step)    | [action-changelog](references/action-changelog.md)           |
-| Publish        | Publish by `type`          | [action-publish](references/action-publish.md)               |
-| Upload Codecov | Codecov OIDC upload (step)   | [action-upload-codecov](references/action-upload-codecov.md) |
-| Autofix Commit | autofix-ci commit (step)     | [action-autofix-commit](references/action-autofix-commit.md) |
+| Name | Path | Description | Reference |
+| ---- | ---- | ----------- | --------- |
+| Setup | `actions/setup` | Checkout + Vite+ environment | [action-setup](references/action-setup.md) |
+| Run | `actions/run` | Execute a shell command | [action-run](references/action-run.md) |
+| Changelog | `actions/changelog` | Run changelogithub (step) | [action-changelog](references/action-changelog.md) |
+| Publish | `actions/publish` | `vp pm publish` by `type` | [action-publish](references/action-publish.md) |
+| Upload Codecov | `actions/upload-codecov` | Codecov OIDC upload | [action-upload-codecov](references/action-upload-codecov.md) |
+| Autofix Commit | `actions/autofix-commit` | autofix-ci commit | [action-autofix-commit](references/action-autofix-commit.md) |
 
 ## Best Practices
 
-| Topic | Description                       | Reference                                                  |
-| ----- | --------------------------------- | ---------------------------------------------------------- |
-| Usage | Permissions, paths, matrix format | [best-practices-usage](references/best-practices-usage.md) |
+| Topic | Description | Reference |
+| ----- | ----------- | --------- |
+| Usage | Permissions, paths, matrix format, CI + coverage, choosing a layer | [best-practices-usage](references/best-practices-usage.md) |
 
 ## Quick Reference
 
@@ -72,5 +83,3 @@ jobs:
 steps:
   - uses: avotokyo/workflows/actions/setup@main
 ```
-
-Read **one** reference file for the component you need. Do not load all references at once.
