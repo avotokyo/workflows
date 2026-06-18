@@ -15,6 +15,8 @@ Repo: `avotokyo/workflows`. Pin with `@main` or a release tag.
 
 **Important:** Workflows go in `.github/workflows/` (job-level `uses:`). Actions go in `actions/` (step-level `uses:`). Default commands: `vp check`, `vp run build`, `vp test`.
 
+**Permissions:** Reusable workflows cannot escalate `GITHUB_TOKEN` beyond what the **caller job** grants. Always set `permissions` on the calling job when the workflow needs elevated scopes (release, coverage, **deploy-pages**, etc.). See [best-practices-usage](references/guides/best-practices-usage.md).
+
 > Based on avotokyo/workflows, updated 2026-06-19.
 
 ## Documentation

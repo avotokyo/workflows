@@ -11,9 +11,21 @@ Atomic workflow for GitHub Pages. Builds with Vite+ (`vp`), uploads a Pages arti
 jobs:
   deploy:
     uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 ```
 
-Permissions are defined inside the reusable workflow (`contents: read`, `pages: write`, `id-token: write`). Callers usually do not need to pass `permissions` again.
+## Permissions
+
+The reusable workflow declares `contents: read`, `pages: write`, and `id-token: write`, but GitHub **does not** inherit those from the callee. The **caller job must pass the same permissions**; otherwise you get:
+
+```text
+The workflow is requesting 'pages: write, id-token: write', but is only allowed 'pages: none, id-token: none'.
+```
+
+Set `permissions` on the job that calls `deploy-pages.yml` (not only inside the reusable workflow).
 
 **Prerequisite:** Repository Settings → Pages → Source → **GitHub Actions**.
 
@@ -41,6 +53,10 @@ on:
 jobs:
   deploy:
     uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 ```
 
 ### Rspress site
@@ -49,6 +65,10 @@ jobs:
 jobs:
   deploy:
     uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     with:
       artifact-path: doc_build
       fetch-all: true

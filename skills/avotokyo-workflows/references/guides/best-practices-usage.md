@@ -19,14 +19,16 @@ Pin `@main` or a release tag.
 
 ## Required Permissions
 
-| Workflow / `type`                       | Caller must pass                     |
-| --------------------------------------- | ------------------------------------ |
-| `coverage.yml`                          | `id-token: write`                    |
+Reusable workflows (`workflow_call`) only receive the scopes the **calling job** grants. Permissions declared inside `avotokyo/workflows` document minimum requirements; **callers must repeat them on the job** that uses `uses: avotokyo/workflows/...`.
+
+| Workflow / `type`                       | Caller job must pass               |
+| --------------------------------------- | ---------------------------------- |
+| `coverage.yml`                          | `id-token: write`                  |
 | `release.yml`, `publish.yml` + `npm`    | `contents: write`, `id-token: write` |
 | `release.yml`, `publish.yml` + `github` | `contents: write`, `packages: write` |
 | `publish-npm.yml`                       | `contents: write`, `id-token: write` |
 | `publish-github.yml`                    | `contents: read`, `packages: write`  |
-| `deploy-pages.yml`                      | `contents: read`, `pages: write`, `id-token: write` (defined in workflow) |
+| `deploy-pages.yml`                      | `contents: read`, `pages: write`, `id-token: write` |
 
 ```yaml
 # npm (default)
@@ -38,6 +40,12 @@ permissions:
 permissions:
   contents: write
   packages: write
+
+# GitHub Pages (deploy-pages.yml)
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 ```
 
 ## Publish Type Architecture
@@ -79,6 +87,20 @@ jobs:
 ```
 
 See [composite-unit-test](../workflows/composite-unit-test.md) and [ci-coverage](../workflows/ci-coverage.md).
+
+### Deploy to GitHub Pages
+
+```yaml
+jobs:
+  deploy:
+    uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+```
+
+See [deploy-pages](../workflows/deploy-pages.md).
 
 ## Matrix Input Format
 

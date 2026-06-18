@@ -77,6 +77,10 @@ on:
 jobs:
   deploy:
     uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 ```
 
 Rspress 等输出到 `doc_build` 的项目：
@@ -85,6 +89,10 @@ Rspress 等输出到 `doc_build` 的项目：
 jobs:
   deploy:
     uses: avotokyo/workflows/.github/workflows/deploy-pages.yml@main
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     with:
       artifact-path: doc_build
       fetch-all: true
