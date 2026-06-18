@@ -60,7 +60,7 @@ on:
 jobs:
   check:
     if: ${{ !inputs.skip-check }}
-    uses: ./.github/workflows/ci/check.yml
+    uses: ./.github/workflows/ci-check.yml
     with:
       os: ${{ inputs.primary-os }}
       check: ${{ inputs.check }}
@@ -69,7 +69,7 @@ jobs:
 
   test:
     if: ${{ !inputs.skip-test }}
-    uses: ./.github/workflows/ci/test.yml
+    uses: ./.github/workflows/ci-test.yml
     with:
       os-matrix: ${{ inputs.os-matrix }}
       node-versions: ${{ inputs.node-versions }}

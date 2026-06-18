@@ -42,11 +42,11 @@ on:
 jobs:
   changelog:
     if: ${{ inputs.github-release }}
-    uses: ./.github/workflows/release/changelog.yml
+    uses: ./.github/workflows/release-changelog.yml
 
   publish:
     if: ${{ inputs.publish || inputs.stage }}
-    uses: ./.github/workflows/release/publish.yml
+    uses: ./.github/workflows/release-publish.yml
     with:
       type: ${{ inputs.type }}
       build: ${{ inputs.build }}
