@@ -3,7 +3,7 @@
 面向 TypeScript / Vite+ 项目的可复用 [GitHub Actions](https://github.com/features/actions) 集合。
 
 > [!NOTE]
-> 推荐优先使用**组合 Workflow**（`unit-test`、`release`）快速接入。完整组件列表、inputs、permissions 与扩展示例见 [skills/avotokyo-workflows](./skills/avotokyo-workflows)。
+> 推荐优先使用**组合 Workflow**（`composite/unit-test`、`composite/release`）快速接入。完整组件列表、inputs、permissions 与扩展示例见 [skills/avotokyo-workflows](./skills/avotokyo-workflows)。
 
 ## 安装
 
@@ -12,7 +12,7 @@
 ```yaml
 jobs:
   test:
-    uses: avotokyo/workflows/.github/workflows/unit-test.yml@main
+    uses: avotokyo/workflows/.github/workflows/composite/unit-test.yml@main
 ```
 
 为 Cursor 等 Agent 安装详细使用说明：
@@ -23,10 +23,10 @@ pnpx skills add avotokyo/workflows --skill=avotokyo-workflows
 
 ## 推荐入口
 
-| Workflow    | 说明                                                      |
-| ----------- | --------------------------------------------------------- |
-| `unit-test` | CI：Check + 多 OS / Node 矩阵测试                         |
-| `release`   | 发布：Changelog + 按 `type` 发布（npm / GitHub Packages） |
+| Workflow | 路径 | 说明 |
+| -------- | ---- | ---- |
+| `unit-test` | `composite/unit-test.yml` | CI：Check + 多 OS / Node 矩阵测试 |
+| `release` | `composite/release.yml` | 发布：Changelog + 按 `type` 发布（npm / GitHub Packages） |
 
 ## 快速上手
 
@@ -38,7 +38,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    uses: avotokyo/workflows/.github/workflows/unit-test.yml@main
+    uses: avotokyo/workflows/.github/workflows/composite/unit-test.yml@main
 ```
 
 ### 发布
@@ -51,7 +51,7 @@ on:
 
 jobs:
   release:
-    uses: avotokyo/workflows/.github/workflows/release.yml@main
+    uses: avotokyo/workflows/.github/workflows/composite/release.yml@main
     with:
       publish: true
       build: vp run build
@@ -64,4 +64,14 @@ jobs:
 
 ---
 
-详细文档：[skills/avotokyo-workflows](./skills/avotokyo-workflows) · Forked from [sxzz/workflows](https://github.com/sxzz/workflows)
+## 文档
+
+| 文档 | 说明 |
+| ---- | ---- |
+| [ARCHITECTURE.md](./ARCHITECTURE.md) | 三层架构与目录约定 |
+| [MIGRATION.md](./MIGRATION.md) | 旧路径迁移对照（2026-06-19 重组） |
+| [skills/avotokyo-workflows](./skills/avotokyo-workflows) | Agent 完整组件参考 |
+| [.github/workflows/README.md](./.github/workflows/README.md) | Workflow 索引 |
+| [actions/README.md](./actions/README.md) | Action 索引 |
+
+Forked from [sxzz/workflows](https://github.com/sxzz/workflows)
