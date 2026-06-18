@@ -66,11 +66,11 @@ jobs:
 
 ## 文档
 
-| 文档                                                         | 说明                          |
-| ------------------------------------------------------------ | ----------------------------- |
-| [ARCHITECTURE.md](./ARCHITECTURE.md)                         | 三层架构与目录约定            |
-| [skills/avotokyo-workflows](./skills/avotokyo-workflows)     | Agent 完整组件参考            |
-| [.github/workflows/README.md](./.github/workflows/README.md) | Workflow 索引                 |
-| [actions/README.md](./actions/README.md)                     | Action 索引                   |
+| 文档                                                         | 说明               |
+| ------------------------------------------------------------ | ------------------ |
+| [ARCHITECTURE.md](./ARCHITECTURE.md)                         | 三层架构与目录约定 |
+| [skills/avotokyo-workflows](./skills/avotokyo-workflows)     | Agent 完整组件参考 |
+| [.github/workflows/README.md](./.github/workflows/README.md) | Workflow 索引      |
+| [actions/README.md](./actions/README.md)                     | Action 索引        |
 
 Forked from [sxzz/workflows](https://github.com/sxzz/workflows)
