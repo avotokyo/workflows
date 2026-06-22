@@ -20,6 +20,18 @@ on:
         type: string
         default: ubuntu-latest
 
+      build:
+        description: 构建命令。
+        required: false
+        type: string
+        default: vp run build
+
+      build-for-check:
+        description: 是否在 Check 前执行构建。
+        required: false
+        type: boolean
+        default: false
+
 jobs:
   autofix:
     name: Autofix
@@ -34,6 +46,12 @@ jobs:
         with:
           fetch-all: false
           cache: true
+
+      - name: Build
+        if: ${{ github.event_name == 'workflow_call' && inputs.build-for-check && inputs.build != '' }}
+        uses: avotokyo/workflows/actions/core/run@main
+        with:
+          command: ${{ inputs.build }}
 
       - name: Fix
         if: ${{ github.event_name != 'workflow_call' || inputs.command != '' }}
